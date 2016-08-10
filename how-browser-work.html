@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>how-browser-work</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h2>浏览器如何工作？</h2>
+<h3>一、浏览器的主要构成</h3>
+<p>简单来说浏览器可以分为两部分，shell+内核。</p>
+<p>Shell是指浏览器的外壳：例如菜单，工具栏等。主要是提供给用户界面操 作，参数设置等等。它是调用内核来实现各种功能的。</p>
+<p>内核才是浏览器的核心。内核是基于标记语言显示内容的程序或模块。</p>
+<p>常见的浏览器内核可以分这四种：Trident、Gecko、 Presto、Webkit。</p>
+<p>浏览器一般由以下组件构成 ：</p>
+<ol>
+<li><strong>用户界面</strong>：浏览器软件界面</li>
+<li><strong>浏览器引擎</strong>：查询及操作渲染引擎的接口，创建UI后端组件等</li>
+<li><strong>渲染引擎</strong>：显示请求的内容，也即渲染html文档</li>
+<li><strong>网络</strong>：完成网络调用，发送和响应http请求</li>
+<li><strong>UI后端</strong>：绘制组合框，对话框等，具有不特定于某个平台的通用接口,底层使用操作系统的接口</li>
+<li><strong>JavaScript解释器</strong>：解释执行JavaScript代码</li>
+<li><strong>数据存储</strong>：浏览器持久层，cookie，localStorage，database（html5）等等</li>
+</ol>
+<p><img src="browser-compoents.png" /></p>
+<blockquote>
+<p>【注意：】浏览器的执行时多线程的，但JavaScript引擎的执行时单线程。所以说浏览器是单线程的这种说法不对！</p>
+</blockquote>
+<h3>二、渲染引擎</h3>
+<p>渲染引擎根据各浏览器厂商实现各有不同，比如Firefox使用Geoko——Mozilla自主研发的渲染引擎，Safari和Chrome都使用webkit。</p>
+<p>Webkit是一款开源渲染引擎。<a href="https://webkit.org/downloads/">webkit源码下载</a></p>
+<h4>1、主流程</h4>
+<p>渲染引擎首先通过网络获得所请求文档的内容，通常以<strong>8K分块</strong>的方式完成。</p>
+<p>基本流程：</p>
+<p><img src="reder-engine-main-flow.png" /></p>
+<blockquote>
+<p>即：请求HTML ==&gt; 解析HTML ==&gt; 构建DOM树 ==&gt; 构建render树 ==&gt; 绘制reder树。</p>
+</blockquote>
+<p>webkit主流程：</p>
+<p><img src="webkit-main-flow.png" /></p>
+<p>Mozilla的Geoko 渲染引擎主流程:</p>
+<p><img src="geoko-main-flow.jpg" /></p>
+<blockquote>
+<p>【注意:】这个渲染过程是逐步完成的，也即解析完一部分就执行一部分。</p>
+</blockquote>
+<h4>2、解析</h4>
+<p>解析一个文档即将其转换为具有一定意义的结构——编码可以理解和使用的东西。解析的结果通常是表达文档结构的节点树，称为解析树或语法树。</p>
+<p>举个栗子：</p>
+<blockquote>
+<p>表达式： &quot;2 + 3 - 1&quot;</p>
+<p>返回解析树：</p>
+<p><img src="parse-tree.png" /></p>
+</blockquote>
+<h5>解析文法</h5>
+<p>传统解析文法：
+上下文无关文法</p>
+<p>HTML文档解析（非上下文无关文法）：
+DTD（Document Type Definition 文档类型定义）</p>
+<h5>解析器</h5>
+<p>解析器有两个子过程：</p>
+<ul>
+<li>
+<p>词法分析器</p>
+</li>
+<li>
+<p>语法分析器</p>
+</li>
+</ul>
+<p>解析过程：</p>
+<p><img src="parse-flow.png" /></p>
+<p>解析结果：解析树。</p>
+<h4>3、转换</h4>
+<p>将解析树转换成机器码。</p>
+<h4>4、编译流程</h4>
+<p><img src="compile-flow.png" /></p>
+<h4>5、HTML解析</h4>
+<p>DOM树，也就是解析树，由DOM元素及属性节点组成的。DOM是文档对象模型的缩写，它是html文档的对象表示，作为html元素的外部接口供js等调用。</p>
+<p>树的根是“document”对象。</p>
+<h5>HTML解析算法</h5>
+<p>HTML的解析过程比较特殊，原因是：</p>
+<ul>
+<li>语言本身的宽容特性</li>
+<li>浏览器对一些常见的非法html有容错机制</li>
+<li>解析过程是往复的，解析过程中可以对输入的文档进行修改。如document.write等</li>
+</ul>
+<p>Html5规范中描述了HTML文档解析算法，算法包括两个阶段：</p>
+<ul>
+<li>符号化：词法分析的过程，将输入解析为符号，html的符号包括开始标签、结束标签、属性名及属性值。</li>
+<li>构建树：符号识别器识别出符号后，将其传递给树构建器，并读取下一个字符，以识别下一个符号，这样直到处理完所有输入。</li>
+</ul>
+<p>如图：</p>
+<p><img src="html-parse-flow.png" /></p>
+<h5>符号识别算法 The tokenization algorithm</h5>
+<p>使用状态机来分析识别单词和符号。</p>
+<p><img src="char-mark.png" /></p>
+<h5>树的构建算法 Tree construction algorithm</h5>
+<p><img src="dom-tree-build.gif" /></p>
+<p>Html5规范中有符号化及构建树的完整算法(<a href="http://www.w3.org/TR/html5/syntax.html#html-parser">http://www.w3.org/TR/html5/syntax.html#html-parser</a>)。</p>
+<h5>浏览器容错 Browsers error tolerance</h5>
+<p>有些html即使不符合规则，但浏览器也不好报解析错误或异常，浏览器会在解析过程中修复HTML作者的错误。
+比如：</p>
+<p>```
+<html></p>
+<pre><code>&lt;mytag&gt;
+
+&lt;/mytag&gt;
+
+&lt;div&gt;
+
+&lt;p&gt;
+
+&lt;/div&gt;
+
+    Really lousy HTML
+
+&lt;/p&gt;
+</code></pre>
+
+<p></html>
+```</p>
+<p>会被解析成：</p>
+<p>```
+	<html>
+		<head></head>
+		<body>
+		  <mytag></p>
+<pre><code>      &lt;/mytag&gt;
+
+      &lt;div&gt;
+
+      &lt;p&gt;
+
+      &lt;/p&gt;&lt;/div&gt;
+
+         Really lousy HTML
+
+      &lt;p&gt;&lt;/p&gt;
+
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>```</p>
+<h4>6、CSS解析</h4>
+<p>CSS的解析属于上下文无关文法，可以用常规的解析器来解析。Css规范定义了css的词法及语法文法。</p>
+<p>Webkit使用Flex和Bison解析生成器从CSS语法文件中自动生成解析器。</p>
+<p>举个栗子：</p>
+<p><img src="css-parse-example.png" /></p>
+<h4>7、脚本解析</h4>
+<p>web的模式是同步的，开发者希望解析到一个script标签时立即解析执行脚本，并阻塞文档的解析直到脚本执行完。</p>
+<p>如果脚本是外引的，则网络必须先请求到这个资源——这个过程也是同步的，会阻塞文档的解析直到资源被请求到。</p>
+<p>引用外部脚本时，有可以标记异步执行脚本的属性：</p>
+<ul>
+<li>async：加载后续文档元素的过程将和外部脚本的加载并行进行（异步）,脚本下载完就立即执行了。</li>
+<li>defer：加载后续文档元素的过程将和外部脚本的加载并行进行（异步），但是脚本的执行要在所有元素解析完成之后，DOMContentLoaded 事件触发之前完成。</li>
+</ul>
+<p>看图：</p>
+<p><img src="defer-async.jpg" /></p>
+<p><a href="http://ued.ctrip.com/blog/script-defer-and-async.html">传送门：defer和async的区别</a></p>
+<h5>预解析</h5>
+<p>当执行脚本时，另一个线程解析剩下的文档，并加载后面需要通过网络加载的资源。这种方式可以使资源并行加载从而使整体速度更快。</p>
+<p>预解析并不改变Dom树，它将这个工作留给主解析过程，自己只解析外部资源的引用，比如外部脚本、样式表及图片。</p>
+<h4>8、渲染树的构造</h4>
+<p>渲染树由元素显示序列中的可见元素组成，它是文档的可视化表示，构建这棵树是为了以正确的顺序绘制文档内容。</p>
+<p>Firefox将渲染树中的元素称为frames，webkit则用renderer或渲染对象来描述这些元素。</p>
+<p>一个渲染对象知道怎么布局及绘制自己及它的子对象。</p>
+<p>RenderObject是Webkit的渲染对象基类，它的定义如下：</p>
+<p>```
+	class RenderObject{</p>
+<pre><code>  virtual void layout();
+
+  virtual void paint(PaintInfo);
+
+  virtual void rect repaintRect();
+
+  Node* node;  //the DOM node
+
+  RenderStyle* style;  // the computed style
+
+  RenderLayer* containgLayer; //the containing z-index layer
+
+}
+</code></pre>
+
+<p>```</p>
+<p>每个渲染对象用一个和该节点的css盒模型相对应的矩形区域来表示。它包含诸如宽、高和位置之类的几何信息。</p>
+<p>盒模型的类型受该节点相关的display样式属性的影响。</p>
+<p>看下webkit对display属性属性的实现：</p>
+<p>```
+	RenderObject* RenderObject::createObject(Node* node, RenderStyle* style)
+	{
+	    Document* doc = node-&gt;document();
+	    RenderArena* arena = doc-&gt;renderArena();</p>
+<pre><code>    ...
+
+    RenderObject* o = 0;
+    switch (style-&gt;display()) {
+        case NONE:
+            break;
+        case INLINE:
+            o = new (arena) RenderInline(node);
+            break;
+        case BLOCK:
+            o = new (arena) RenderBlock(node);
+            break;
+        case INLINE_BLOCK:
+            o = new (arena) RenderBlock(node);
+            break;
+        case LIST_ITEM:
+            o = new (arena) RenderListItem(node);
+            break;
+       ...
+    }
+    return o;
+}
+</code></pre>
+
+<p>```</p>
+<h6>渲染树和DOM树的关系</h6>
+<p>渲染树上的渲染对象和DOM树上的元素节点并不是一一对应的。</p>
+<ul>
+<li>不可见的DOM元素不会被插入渲染树，如head标签元素,display属性为none的元素等</li>
+<li>一些DOM结构对应多个可见对象，那么就会生成多个渲染对象。如select标签元素等</li>
+<li>折行文本会被当做额外的渲染对象</li>
+<li>不规范的HTML</li>
+</ul>
+<p>渲染对象和对应的DOM节点也可能不在相同的位置。例如，浮动和绝对定位的元素在文本流之外，在两棵树上的位置不同，渲染树上标识出真实的结构，并用一个占位结构标识出它们原来的位置。</p>
+<p><img src="dom-render.png" /></p>
+<h6>样式计算</h6>
+<p>创建渲染树需要计算出每个渲染对象的可视属性，这可以通过计算每个元素的样式属性得到。</p>
+<p>样式包括各种来源的样式表，行内样式元素及html中的可视化属性（例如bgcolor），可视化属性转化为css样式属性。</p>
+<p>样式表来源于浏览器默认样式表，及页面作者和用户提供的样式表——有些样式是浏览器用户提供的。</p>
+<p>样式的来源多样，因此计算时会有一些困难：</p>
+<ul>
+<li>样式数据庞大，保存样式属性占用大量内存</li>
+<li>找到每个元素匹配的规则会导致性能问题。</li>
+<li>应用规则涉及非常复杂的级联，它们定义了规则的层次</li>
+</ul>
+<p>浏览器解决这些问题的策略：</p>
+<ol>
+<li>
+<p><strong>共享样式数据</strong></p>
+<p>Firefox规则树和上下文样式树</p>
+<p>webkit也有样式对象。</p>
+</li>
+<li>
+<p><strong>对规则进行处理以简化匹配过程</strong></p>
+<p>解析完样式表之后，规则会根据选择符添加一些hash映射，映射可以是根据id、class、标签名或是任何不属于这些分类的综合映射。如果选择符为id，规则将被添加到id映射，如果是class，则被添加到class映射，等等。</p>
+</li>
+<li>
+<p><strong>以正确的级联顺序应用规则</strong></p>
+<p>规则匹配后，需要根据级联顺序对规则进行排序，webkit先将小列表用冒泡排序，再将它们合并为一个大列表。</p>
+</li>
+<li>
+<p><strong>逐步处理</strong></p>
+</li>
+</ol>
+<h3>三、布局 Layout</h3>
+<p>当渲染对象被创建并添加到树中，它们并没有位置和大小，计算这些值的过程称为layout或reflow。
+每个渲染对象都一个layout或reflow方法，触发布局的时候调用。</p>
+<p>布局可以在文档中从右向左、自上而下的进行。</p>
+<p>布局是一个递归的过程，由根渲染对象开始，递归的通过一些或所有的渲染对象层级，为每个需要几何信息的渲染对象进行计算。</p>
+<h4>Dirty bit 系统</h4>
+<p>一个渲染对象发生了变化或是被添加了一个子渲染对象，就标记它和它的children为'dirty'，表示需要layout。</p>
+<p>还有一个标识是：'children are dirty'，标识这个渲染对象可能不需要layout，但它的children至少有一个需要layout。</p>
+<p>目的：不因为每个小变化都全部重新布局。</p>
+<h4>全局和增量Layout</h4>
+<p>全局Layout，一般同步触发，也即整棵渲染树触发layout时：</p>
+<ul>
+<li>全局样式改变</li>
+<li>窗口尺寸改变</li>
+</ul>
+<p>增量layout：只有被标识为dirty的渲染对象才会重新布局。而且这个过程是异步触发的。</p>
+<p>浏览器做的优化：</p>
+<ul>
+<li>从缓存中取没有发生变化的数据</li>
+<li>子树发生改变则只有子树触发布局，而不是从根元素开始，也不影响兄弟子树。</li>
+</ul>
+<h4>Layout过程</h4>
+<p>layout一个渲染对象，要经过以下步骤：</p>
+<ol>
+<li>计算自身宽度</li>
+<li>读取设置children，并判断children的dirty状态，选择渲染dirty的子对象。</li>
+<li>根据子对象的累积高度，margin和padding来设置自己的高度，提供给parent对象使用</li>
+<li>更新dirty标识为false</li>
+</ol>
+<h3>四、绘制 Painting</h3>
+<p>绘制阶段，遍历渲染树并调用渲染对象的paint方法将它们的内容显示在屏幕上</p>
+<p>绘制也分全局和增量绘制。</p>
+<p>增量绘制时候也使用的dirty标识屏幕上的矩形区域。</p>
+<h4>1、绘制顺序</h4>
+<p>css2定义了绘制过程的顺序－<a href="http://www.w3.org/TR/CSS21/zindex.html">http://www.w3.org/TR/CSS21/zindex.html</a>。这个就是元素压入堆栈的顺序，这个顺序影响着绘制，堆栈从后向前进行绘制。</p>
+<p>一个块渲染对象的堆栈顺序为：</p>
+<ol>
+<li>背景色</li>
+<li>背景图</li>
+<li>border</li>
+<li>children</li>
+<li>outline</li>
+</ol>
+<h4>2、动态变化</h4>
+<p>浏览器总是试着以最小的动作响应一个变化。</p>
+<p>所以这就存在有些属性的变化只会改变单个渲染对象的值，如颜色，字体，transform等。但有些属性则会导致大面积的重绘，如位置的变化等。</p>
+<h4>3、线程、事件</h4>
+<p>浏览器是多线程的，渲染引擎和JavaScript是单线程的。其中渲染引擎则是浏览器的主线程。</p>
+<p>浏览器的主线程是一个事件循环，它被设计为无限循环以保持执行过程的可用，等待事件（例如layout和paint事件）并执行它们。</p>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

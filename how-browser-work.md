@@ -397,3 +397,8 @@ css2定义了绘制过程的顺序－[http://www.w3.org/TR/CSS21/zindex.html](ht
 
 浏览器的主线程是一个事件循环，它被设计为无限循环以保持执行过程的可用，等待事件（例如layout和paint事件）并执行它们。
 
+
+
+### 参考链接
+
+[http://taligarsiel.com/Projects/howbrowserswork1.htm](http://taligarsiel.com/Projects/howbrowserswork1.htm)

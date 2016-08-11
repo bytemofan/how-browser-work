@@ -154,6 +154,14 @@ HTML文件还没完整的接受到的时候，就开始显示这个页面了，�
 - 页面渲染（浏览器解析渲染）
 
 
+### 参考链接
+
+[http://igoro.com/archive/what-really-happens-when-you-navigate-to-a-url/](http://igoro.com/archive/what-really-happens-when-you-navigate-to-a-url/)
+
+[http://www.nowamagic.net/academy/detail/48110180](http://www.nowamagic.net/academy/detail/48110180)
+
+
+
 
 
 
